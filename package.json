@@ -16,12 +16,12 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arkx-ecosystem/core-delegate-api.git"
+    "url": "git+https://github.com/faustbrian/core-delegate-api.git"
   },
   "bugs": {
-    "url": "https://github.com/arkx-ecosystem/core-delegate-api/issues"
+    "url": "https://github.com/faustbrian/core-delegate-api/issues"
   },
-  "homepage": "https://github.com/arkx-ecosystem/core-delegate-api",
+  "homepage": "https://github.com/faustbrian/core-delegate-api",
   "scripts": {
     "test": "ARK_ENV=test jest --runInBand --forceExit",
     "lint": "eslint ./ --fix"

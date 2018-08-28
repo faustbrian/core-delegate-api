@@ -1,7 +1,7 @@
 # Ark Core - Delegate API
 
 <p align="center">
-    <img src="https://github.com/arkx-ecosystem/core-delegate-api/raw/master/banner.png" />
+    <img src="https://github.com/faustbrian/core-delegate-api/raw/master/banner.png" />
 </p>
 
 > A delegate experience focused API for [Ark Core](https://github.com/ArkEcosystem/core).
@@ -12,7 +12,7 @@
 
 ```bash
 cd ~/ark-core/plugins
-git clone https://github.com/arkx-ecosystem/core-delegate-api
+git clone https://github.com/faustbrian/core-delegate-api
 lerna bootstrap
 ```
 
