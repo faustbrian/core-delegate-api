@@ -1,5 +1,7 @@
 # Ark Core - Delegate API
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/faustbrian/core-delegate-api.svg)](https://greenkeeper.io/)
+
 <p align="center">
     <img src="https://github.com/faustbrian/core-delegate-api/raw/master/banner.png" />
 </p>
