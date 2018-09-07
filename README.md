@@ -6,6 +6,12 @@
     <img src="https://github.com/faustbrian/core-delegate-api/raw/master/banner.png" />
 </p>
 
+<a href="https://travis-ci.org/faustbrian/core-delegate-api"><img src="https://badgen.net/travis/faustbrian/core-delegate-api"></a>
+<a href="https://codecov.io/github/faustbrian/core-delegate-api"><img src="https://badgen.net/codecov/c/github/faustbrian/core-delegate-api"></a>
+<a href="https://github.com/faustbrian/core-delegate-api"><img src="https://badgen.net/github/last-commit/faustbrian/core-delegate-api"></a>
+<a href="https://github.com/faustbrian/core-delegate-api"><img src="https://badgen.net/github/release/faustbrian/core-delegate-api"></a>
+<a href="https://github.com/faustbrian/core-delegate-api"><img src="https://badgen.net/github/license/faustbrian/core-delegate-api"></a>
+
 > A delegate experience focused API for [Ark Core](https://github.com/ArkEcosystem/core).
 
 ## Installation
