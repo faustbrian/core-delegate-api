@@ -1,10 +1,15 @@
 language: node_js
 
 node_js:
-  - node
-  - 9
+    - 10
+    - 9
 
 script:
-  - yarn test
+    - yarn test:coverage --ci
+    - codecov
 
-cache: yarn
+cache:
+    yarn: true
+
+git:
+    depth: 1

@@ -22,10 +22,12 @@
     "url": "https://github.com/faustbrian/core-delegate-api/issues"
   },
   "homepage": "https://github.com/faustbrian/core-delegate-api",
-  "scripts": {
-    "test": "ARK_ENV=test jest --runInBand --forceExit",
-    "lint": "eslint ./ --fix"
-  },
+    "scripts": {
+        "test": "jest --runInBand --forceExit",
+        "test:watch": "jest --runInBand --forceExit --watchAll",
+        "test:coverage": "jest --runInBand --forceExit --coverage",
+        "lint": "eslint ./ --fix"
+    },
   "dependencies": {
     "@arkecosystem/core-container": "^0.1.0",
     "boom": "^7.2.0",
@@ -38,6 +40,7 @@
     "request-ip": "^2.0.2"
   },
   "devDependencies": {
+    "codecov": "^3.1.0",
     "eslint": "^5.5.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.11.0",
