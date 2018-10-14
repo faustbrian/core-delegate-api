@@ -34,7 +34,7 @@
         "hapi": "^17.5.2",
         "hapi-pagination": "^2.0.0",
         "hapi-rate-limit": "^2.1.2",
-        "joi": "^13.4.0",
+        "joi": "^14.0.0",
         "lodash": "^4.17.10",
         "micromatch": "^3.1.10",
         "request-ip": "^2.0.2"
