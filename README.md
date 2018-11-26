@@ -1,5 +1,7 @@
 # Ark Core - Delegate API
 
+> :warning: UNDER DEVELOPMENT, USE AT OWN RISK! :warning:
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/faustbrian/core-delegate-api.svg)](https://greenkeeper.io/)
 
 <p align="center">
