@@ -1,19 +1,11 @@
 {
-    "name": "@arkx/core-delegate-api",
+    "name": "@faustbrian/core-delegate-api",
     "version": "0.1.0",
     "description": "A delegate experience focused API for Ark Core",
     "author": "ArkX",
     "license": "MIT",
-    "keywords": [
-        "core",
-        "blockchain",
-        "ark",
-        "crypto",
-        "dpos",
-        "delegate",
-        "api"
-    ],
-    "main": "lib/index.js",
+    "main": "src/index",
+    "types": "src/index",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/faustbrian/core-delegate-api.git"
@@ -23,33 +15,12 @@
     },
     "homepage": "https://github.com/faustbrian/core-delegate-api",
     "scripts": {
-        "test": "jest --runInBand --forceExit",
-        "test:watch": "jest --runInBand --forceExit --watchAll",
-        "test:coverage": "jest --runInBand --forceExit --coverage",
-        "lint": "eslint ./ --fix"
+        "compile": "../../node_modules/typescript/bin/tsc",
+        "build": "yarn clean && yarn compile && yarn copy",
+        "build:watch": "yarn clean && yarn copy && yarn compile -w",
+        "clean": "del dist"
     },
     "dependencies": {
-        "@arkecosystem/core-container": "^0.1.0",
-        "boom": "^7.2.0",
-        "hapi": "^17.5.2",
-        "hapi-pagination": "^2.0.0",
-        "hapi-rate-limit": "^2.1.2",
-        "joi": "^14.0.0",
-        "lodash": "^4.17.10",
-        "micromatch": "^3.1.10",
-        "request-ip": "^2.0.2"
-    },
-    "devDependencies": {
-        "codecov": "^3.1.0",
-        "eslint": "^5.5.0",
-        "eslint-config-standard": "^12.0.0",
-        "eslint-plugin-import": "^2.11.0",
-        "eslint-plugin-node": "^8.0.0",
-        "eslint-plugin-promise": "^4.0.0",
-        "eslint-plugin-standard": "^4.0.0",
-        "husky": "^1.0.0",
-        "jest": "^23.5.0",
-        "jest-extended": "^0.11.0",
-        "standard": "^12.0.1"
+        "@faustbrian/hapi-whitelist": "^0.1.2"
     }
 }
