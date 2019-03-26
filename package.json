@@ -1,26 +1,38 @@
 {
-    "name": "@faustbrian/core-delegate-api",
-    "version": "0.1.0",
-    "description": "A delegate experience focused API for Ark Core",
-    "license": "MIT",
-    "main": "dist/index",
-    "types": "dist/index",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "compile": "../../node_modules/typescript/bin/tsc",
-        "build": "yarn clean && yarn compile",
-        "build:watch": "yarn clean && yarn compile -w",
-        "clean": "del dist"
-    },
-    "dependencies": {
-        "@arkecosystem/core-container": "^2.3.0-next.1",
-        "@arkecosystem/core-interfaces": "^2.3.0-next.1",
-        "@faustbrian/hapi-whitelist": "^0.1.2",
-        "boom": "^7.3.0",
-        "hapi": "^18.1.0",
-        "joi": "^14.3.1",
-        "lodash.pick": "^4.4.0"
-    }
+	"name": "@faustbrian/core-delegate-api",
+	"version": "0.1.0",
+	"description": "A delegate experience focused API for Ark Core",
+	"license": "MIT",
+	"main": "dist/index",
+	"types": "dist/index",
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"build:watch": "tsc -w",
+		"format": "yarn lint && yarn prettier",
+		"lint": "tslint -c tslint.json 'src/**/*.ts' --fix",
+		"prettier": "prettier --write \"./*.{ts,js,json,md}\" \"./**/*.{ts,js,json,md}\"",
+		"prepublish": "yarn format && yarn build"
+	},
+	"dependencies": {
+		"@arkecosystem/core-container": "^2.3.0-next.1",
+		"@arkecosystem/core-interfaces": "^2.3.0-next.1",
+		"@faustbrian/hapi-whitelist": "^0.1.2",
+		"boom": "^7.3.0",
+		"hapi": "^18.1.0",
+		"joi": "^14.3.1",
+		"lodash.pick": "^4.4.0"
+	},
+	"devDependencies": {
+		"@types/jest": "^24.0.11",
+		"jest": "^24.5.0",
+		"jest-extended": "^0.11.1",
+		"prettier": "^1.16.4",
+		"ts-jest": "^24.0.0",
+		"tslint": "^5.14.0",
+		"tslint-config-prettier": "^1.18.0",
+		"typescript": "^3.3.4000"
+	}
 }

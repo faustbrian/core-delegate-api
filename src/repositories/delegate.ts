@@ -2,15 +2,15 @@ import pick from "lodash.pick";
 import { Repository } from "./repository";
 
 class DelegateRepository extends Repository {
-    public findById(id) {
-        const delegates = this.database.walletManager.allByUsername();
+	public findById(id) {
+		const delegates = this.database.walletManager.allByUsername();
 
-        return delegates.find(item => {
-            const keys = pick(item, "address", "publicKey", "username");
+		return delegates.find(item => {
+			const keys = pick(item, "address", "publicKey", "username");
 
-            return Object.values(keys).includes(id);
-        });
-    }
+			return Object.values(keys).includes(id);
+		});
+	}
 }
 
 export const delegateRepository = new DelegateRepository();
