@@ -1,23 +1,29 @@
-class VoterRepository {
+import pick from "lodash.pick";
+import { Repository } from "./repository";
+
+class VoterRepository extends Repository {
     public all(delegate, parameters) {
-        // const voters = database.walletManager.getLocalWallets().filter(item => {
-        //     return item.vote === delegate.publicKey;
-        // });
-        // return {
-        //     rows: _(voters)
-        //         .slice(parameters.offset)
-        //         .take(parameters.limit)
-        //         .value(),
-        //     count: voters.length,
-        // };
+        const voters = this.database.walletManager.allByAddress().filter(item => item.vote === delegate.publicKey);
+
+        let rows = voters;
+        if (parameters.offset && parameters.limit) {
+            rows = rows.slice(parameters.offset, parameters.offset + parameters.limit);
+        }
+
+        return {
+            rows,
+            count: voters.length,
+        };
     }
 
     public findById(delegate, id) {
-        // const voters = this.all(delegate);
-        // return voters.find(item => {
-        //     const keys = _.pick(item, "address", "publicKey", "username");
-        //     return Object.values(keys).includes(id);
-        // });
+        const voters = this.all(delegate, {});
+
+        return voters.rows.find(item => {
+            const keys = pick(item, "address", "publicKey", "username");
+
+            return Object.values(keys).includes(id);
+        });
     }
 }
 

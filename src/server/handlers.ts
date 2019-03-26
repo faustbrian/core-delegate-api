@@ -1,12 +1,13 @@
+import { app } from "@arkecosystem/core-container";
+import { TransactionPool } from "@arkecosystem/core-transaction-pool";
+import { Transaction } from "@arkecosystem/crypto";
+import Boom from "boom"; // FIXME: why does this cause export const to fail if missing?
 import Joi from "joi";
-const createPaginatedResponse = require("./helpers/paginated-responder");
-const createPagination = require("./helpers/pagination");
-const createResponse = require("./helpers/responder");
-const transactionRepository = require("../../repositories/transaction");
+import { blockRepository } from "../repositories/block";
+import { transactionRepository } from "../repositories/transaction";
+import { voterRepository } from "../repositories/voter";
+import { createPaginatedResponse, createPagination, createResponse } from "./helpers";
 
-/**
- * Delegates API
- */
 export const getDelegate = {
     method: "GET",
     path: "/{delegate}",
@@ -22,9 +23,6 @@ export const getDelegate = {
     },
 };
 
-/**
- * Blocks API
- */
 export const getBlocks = {
     method: "GET",
     path: "/{delegate}/blocks",
@@ -109,9 +107,25 @@ export const getBlockTransactions = {
     },
 };
 
-/**
- * Transactions API
- */
+export const postTransactions = {
+    method: "POST",
+    path: "/{delegate}/transactions",
+    async handler(request, h) {
+        const transactions = request.payload.transactions.map(transaction => Transaction.fromData(transaction));
+
+        app.resolvePlugin<TransactionPool>("transaction-pool").addTransactions(transactions);
+
+        return h.code(204);
+    },
+    options: {
+        validate: {
+            payload: {
+                transactions: Joi.array(),
+            },
+        },
+    },
+};
+
 export const getTransactions = {
     method: "GET",
     path: "/{delegate}/transactions",
@@ -224,9 +238,6 @@ export const getTransactionsForged = {
     },
 };
 
-/**
- * Voters API
- */
 export const getVoters = {
     method: "GET",
     path: "/{delegate}/voters",
@@ -248,7 +259,7 @@ export const getVoter = {
     method: "GET",
     path: "/{delegate}/voters/{voter}",
     async handler(request) {
-        const data = voterRepository.findById(request.app.delegate, request.params.id);
+        const data = voterRepository.findById(request.app.delegate, request.params.voter);
 
         return createResponse(data, "voter");
     },
@@ -256,7 +267,7 @@ export const getVoter = {
         validate: {
             params: {
                 delegate: Joi.string(),
-                id: Joi.string(),
+                voter: Joi.string(),
             },
         },
     },
@@ -266,14 +277,19 @@ export const getVoterTransactions = {
     method: "GET",
     path: "/{delegate}/voters/{voter}/transactions",
     async handler(request) {
-        const data = transactionRepository.findByWallet(request.params.id, createPagination(request));
+        const data = await transactionRepository.findByWallet(
+            request.app.delegate,
+            request.params.voter,
+            createPagination(request),
+        );
 
         return createPaginatedResponse(data, "transaction");
     },
     options: {
         validate: {
             params: {
-                id: Joi.string(),
+                delegate: Joi.string(),
+                voter: Joi.string(),
             },
             query: {
                 limit: Joi.number().integer(),
@@ -288,14 +304,15 @@ export const getVoterTransactionsSent = {
     method: "GET",
     path: "/{delegate}/voters/{voter}/transactions/sent",
     async handler(request) {
-        const data = transactionRepository.findBySender(request.params.id, createPagination(request));
+        const data = await transactionRepository.findBySender(request.params.voter, createPagination(request));
 
         return createPaginatedResponse(data, "transaction");
     },
     options: {
         validate: {
             params: {
-                id: Joi.string(),
+                delegate: Joi.string(),
+                voter: Joi.string(),
             },
             query: {
                 limit: Joi.number().integer(),
@@ -310,14 +327,15 @@ export const getVoterTransactionsReceived = {
     method: "GET",
     path: "/{delegate}/voters/{voter}/transactions/received",
     async handler(request) {
-        const data = transactionRepository.findByRecipient(request.params.id, createPagination(request));
+        const data = await transactionRepository.findByRecipient(request.params.voter, createPagination(request));
 
         return createPaginatedResponse(data, "transaction");
     },
     options: {
         validate: {
             params: {
-                id: Joi.string(),
+                delegate: Joi.string(),
+                voter: Joi.string(),
             },
             query: {
                 limit: Joi.number().integer(),

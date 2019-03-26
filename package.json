@@ -2,25 +2,25 @@
     "name": "@faustbrian/core-delegate-api",
     "version": "0.1.0",
     "description": "A delegate experience focused API for Ark Core",
-    "author": "ArkX",
     "license": "MIT",
-    "main": "src/index",
-    "types": "src/index",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/faustbrian/core-delegate-api.git"
-    },
-    "bugs": {
-        "url": "https://github.com/faustbrian/core-delegate-api/issues"
-    },
-    "homepage": "https://github.com/faustbrian/core-delegate-api",
+    "main": "dist/index",
+    "types": "dist/index",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "compile": "../../node_modules/typescript/bin/tsc",
-        "build": "yarn clean && yarn compile && yarn copy",
-        "build:watch": "yarn clean && yarn copy && yarn compile -w",
+        "build": "yarn clean && yarn compile",
+        "build:watch": "yarn clean && yarn compile -w",
         "clean": "del dist"
     },
     "dependencies": {
-        "@faustbrian/hapi-whitelist": "^0.1.2"
+        "@arkecosystem/core-container": "^2.3.0-next.1",
+        "@arkecosystem/core-interfaces": "^2.3.0-next.1",
+        "@faustbrian/hapi-whitelist": "^0.1.2",
+        "boom": "^7.3.0",
+        "hapi": "^18.1.0",
+        "joi": "^14.3.1",
+        "lodash.pick": "^4.4.0"
     }
 }

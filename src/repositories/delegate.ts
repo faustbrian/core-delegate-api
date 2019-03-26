@@ -1,12 +1,15 @@
-class DelegateRepository {
-    public findById(id) {
-        // const delegates = database.walletManager.allByUsername();
-        // return delegates.find(item => {
-        //     const keys = pick(item, "address", "publicKey", "username");
-        //     return Object.values(keys).includes(id);
-        // });
+import pick from "lodash.pick";
+import { Repository } from "./repository";
 
-        return {};
+class DelegateRepository extends Repository {
+    public findById(id) {
+        const delegates = this.database.walletManager.allByUsername();
+
+        return delegates.find(item => {
+            const keys = pick(item, "address", "publicKey", "username");
+
+            return Object.values(keys).includes(id);
+        });
     }
 }
 

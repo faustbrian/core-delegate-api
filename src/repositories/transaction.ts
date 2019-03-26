@@ -1,84 +1,68 @@
-const container = require("@arkecosystem/core-container");
-const database = container.resolvePlugin("database");
-const blockRepository = require("./block");
-const Repository = require("./repository");
-const voterRepository = require("./voter");
+import { blockRepository } from "./block";
+import { Repository } from "./repository";
+import { voterRepository } from "./voter";
 
 class TransactionRepository extends Repository {
     public async all(delegate, parameters) {
-        // const wrapQuery = query => {
-        //     return query
-        //         .where(this.query.sender_public_key.equals(delegate.publicKey))
-        //         .where(this.query.recipient_id.equals(delegate.address));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+        parameters.sender_public_key = delegate.publicKey;
+        parameters.recipient_id = delegate.address;
+
+        return this.database.transactionsBusinessRepository.findAll(parameters);
     }
 
     public async findById(delegate, id) {
-        // const query = this.query
-        //     .select()
-        //     .from(this.query)
-        //     .where(this.query.id.equals(id))
-        //     .where(this.query.sender_public_key.equals(delegate.publicKey))
-        //     .or(this.query.recipient_id.equals(delegate.address));
-        // return this._find(query);
+        const transactions = await this.database.transactionsBusinessRepository.findAll({
+            id,
+            sender_public_key: delegate.publicKey,
+            recipient_id: delegate.address,
+        });
+
+        return transactions.rows[0];
     }
 
     public async findByBlock(delegate, id, parameters) {
-        // const wrapQuery = query => {
-        //     return query
-        //         .where(this.query.block_id.equals(id))
-        //         .where(this.query.sender_public_key.equals(delegate.publicKey))
-        //         .where(this.query.recipient_id.equals(delegate.address));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+        return this.database.transactionsBusinessRepository.findAll({
+            block_id: id,
+            sender_public_key: delegate.publicKey,
+            recipient_id: delegate.address,
+            ...parameters,
+        });
     }
 
-    public async findByWallet(id, parameters) {
-        // const wallet = voterRepository.findById(id);
-        // const wrapQuery = query => {
-        //     return query
-        //         .where(this.query.sender_public_key.equals(wallet.publicKey))
-        //         .where(this.query.recipient_id.equals(wallet.address));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+    public async findByWallet(delegate, id, parameters) {
+        const wallet = voterRepository.findById(delegate, id);
+
+        return this.database.transactionsBusinessRepository.findAll({
+            sender_public_key: wallet.publicKey,
+            recipient_id: wallet.address,
+            ...parameters,
+        });
     }
 
-    public async findBySender(id, parameters) {
-        // const wallet = voterRepository.findById(id);
-        // const wrapQuery = query => {
-        //     return query.where(this.query.sender_public_key.equals(wallet.publicKey));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+    public async findBySender(publicKey, parameters) {
+        return this.database.transactionsBusinessRepository.findAll({
+            sender_public_key: publicKey,
+            ...parameters,
+        });
     }
 
-    public async findByRecipient(id, parameters) {
-        // const wallet = voterRepository.findById(id);
-        // const wrapQuery = query => {
-        //     return query.where(this.query.recipient_id.equals(wallet.address));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+    public async findByRecipient(address, parameters) {
+        return this.database.transactionsBusinessRepository.findAll({
+            recipient_id: address,
+            ...parameters,
+        });
     }
 
     public async forged(delegate, parameters) {
-        // const ids = await blockRepository.ids(delegate.publicKey);
-        // const wrapQuery = query => {
-        //     return query.where(this.query.block_id.in(ids));
-        // };
-        // const selectQuery = wrapQuery(this.query.select().from(this.query));
-        // const countQuery = wrapQuery(this._makeEstimateQuery());
-        // return this._findManyWithCount(selectQuery, countQuery, parameters);
+        const ids = await blockRepository.ids(delegate.publicKey);
+
+        const transactions = await this.database.transactionsBusinessRepository.findAll({
+            block_id: ids,
+            ...parameters,
+        });
+
+        return transactions;
     }
 }
 
-module.exports = new TransactionRepository();
+export const transactionRepository = new TransactionRepository();
