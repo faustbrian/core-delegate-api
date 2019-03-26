@@ -17,8 +17,8 @@ If you discover a security vulnerability within this package, please send an e-m
 ## Credits
 
 -   [Brian Faust](https://github.com/faustbrian)
--   [All Contributors](../../../../contributors)
+-   [All Contributors](../../contributors)
 
 ## License
 
-[MIT](LICENSE) © [ArkX](https://arkx.io)
+[MIT](LICENSE) © [Brian Faust](https://basecode.sh)
