@@ -28,7 +28,7 @@ export async function createResponse(data, transformer) {
 
 export function createPagination(request) {
 	return {
-		offset: (request.query.page - 1) * request.query.limit,
+		offset: request.query.offset,
 		limit: request.query.limit,
 	};
 }

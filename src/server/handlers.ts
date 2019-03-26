@@ -8,6 +8,15 @@ import { transactionRepository } from "../repositories/transaction";
 import { voterRepository } from "../repositories/voter";
 import { createPaginatedResponse, createPagination, createResponse } from "./helpers";
 
+const schemaPagination = {
+	limit: Joi.number()
+		.integer()
+		.default(100),
+	offset: Joi.number()
+		.integer()
+		.default(0),
+};
+
 export const getDelegate = {
 	method: "GET",
 	path: "/{delegate}",
@@ -36,11 +45,7 @@ export const getBlocks = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -98,11 +103,7 @@ export const getBlockTransactions = {
 				delegate: Joi.string(),
 				block: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -139,11 +140,7 @@ export const getTransactions = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -182,11 +179,7 @@ export const getTransactionsSent = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -207,11 +200,7 @@ export const getTransactionsReceived = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -229,11 +218,7 @@ export const getTransactionsForged = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -291,11 +276,7 @@ export const getVoterTransactions = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -314,11 +295,7 @@ export const getVoterTransactionsSent = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
@@ -337,11 +314,7 @@ export const getVoterTransactionsReceived = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: {
-				limit: Joi.number().integer(),
-				page: Joi.number().integer(),
-				pagination: Joi.boolean(),
-			},
+			query: schemaPagination,
 		},
 	},
 };
