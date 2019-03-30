@@ -1,6 +1,7 @@
 import { app } from "@arkecosystem/core-container";
 import { TransactionPool } from "@arkecosystem/core-transaction-pool";
 import { Transaction } from "@arkecosystem/crypto";
+import { orderBy } from "@arkecosystem/utils";
 import Boom from "boom"; // FIXME: why does this cause export const to fail if missing?
 import Joi from "joi";
 import { blockRepository } from "../repositories/block";
@@ -233,6 +234,54 @@ export const getVoters = {
 		const data = voterRepository.all(request.app.delegate, createPagination(request));
 
 		return createPaginatedResponse(data, "voter");
+	},
+	options: {
+		validate: {
+			params: {
+				delegate: Joi.string(),
+			},
+		},
+	},
+};
+
+export const getVoterBalancesByAddress = {
+	method: "GET",
+	path: "/{delegate}/voters/balances/address",
+	async handler(request) {
+		const voters = voterRepository.all(request.app.delegate);
+
+		const data = {};
+		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
+			data[voter.address] = +voter.balance.toFixed();
+		}
+
+		return {
+			data,
+		};
+	},
+	options: {
+		validate: {
+			params: {
+				delegate: Joi.string(),
+			},
+		},
+	},
+};
+
+export const getVoterBalancesByPublicKey = {
+	method: "GET",
+	path: "/{delegate}/voters/balances/pubkey",
+	async handler(request) {
+		const voters = voterRepository.all(request.app.delegate);
+
+		const data = {};
+		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
+			data[voter.publicKey] = +voter.balance.toFixed();
+		}
+
+		return {
+			data,
+		};
 	},
 	options: {
 		validate: {

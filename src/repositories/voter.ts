@@ -2,16 +2,15 @@ import pick from "lodash.pick";
 import { Repository } from "./repository";
 
 class VoterRepository extends Repository {
-	public all(delegate, parameters) {
-		const voters = this.database.walletManager.allByAddress().filter(item => item.vote === delegate.publicKey);
+	public all(delegate, parameters?) {
+		let voters = this.database.walletManager.allByAddress().filter(item => item.vote === delegate.publicKey);
 
-		let rows = voters;
-		if (parameters.offset && parameters.limit) {
-			rows = rows.slice(parameters.offset, parameters.offset + parameters.limit);
+		if (parameters && parameters.offset && parameters.limit) {
+			voters = voters.slice(parameters.offset, parameters.offset + parameters.limit);
 		}
 
 		return {
-			rows,
+			rows: voters,
 			count: voters.length,
 		};
 	}
