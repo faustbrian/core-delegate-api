@@ -244,54 +244,6 @@ export const getVoters = {
 	},
 };
 
-export const getVoterBalancesByAddress = {
-	method: "GET",
-	path: "/{delegate}/voters/balances/address",
-	async handler(request) {
-		const voters = voterRepository.all(request.app.delegate);
-
-		const data = {};
-		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
-			data[voter.address] = +voter.balance.toFixed();
-		}
-
-		return {
-			data,
-		};
-	},
-	options: {
-		validate: {
-			params: {
-				delegate: Joi.string(),
-			},
-		},
-	},
-};
-
-export const getVoterBalancesByPublicKey = {
-	method: "GET",
-	path: "/{delegate}/voters/balances/pubkey",
-	async handler(request) {
-		const voters = voterRepository.all(request.app.delegate);
-
-		const data = {};
-		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
-			data[voter.publicKey] = +voter.balance.toFixed();
-		}
-
-		return {
-			data,
-		};
-	},
-	options: {
-		validate: {
-			params: {
-				delegate: Joi.string(),
-			},
-		},
-	},
-};
-
 export const getVoter = {
 	method: "GET",
 	path: "/{delegate}/voters/{voter}",
@@ -367,6 +319,54 @@ export const getVoterTransactionsReceived = {
 				voter: Joi.string(),
 			},
 			query: schemaPagination,
+		},
+	},
+};
+
+export const getVoterBalancesByAddress = {
+	method: "GET",
+	path: "/{delegate}/voters/balances/address",
+	async handler(request) {
+		const voters = voterRepository.all(request.app.delegate);
+
+		const data = {};
+		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
+			data[voter.address] = +voter.balance.toFixed();
+		}
+
+		return {
+			data,
+		};
+	},
+	options: {
+		validate: {
+			params: {
+				delegate: Joi.string(),
+			},
+		},
+	},
+};
+
+export const getVoterBalancesByPublicKey = {
+	method: "GET",
+	path: "/{delegate}/voters/balances/public-key",
+	async handler(request) {
+		const voters = voterRepository.all(request.app.delegate);
+
+		const data = {};
+		for (const voter of orderBy(voters.rows, ["balance"], ["desc"])) {
+			data[voter.publicKey] = +voter.balance.toFixed();
+		}
+
+		return {
+			data,
+		};
+	},
+	options: {
+		validate: {
+			params: {
+				delegate: Joi.string(),
+			},
 		},
 	},
 };
