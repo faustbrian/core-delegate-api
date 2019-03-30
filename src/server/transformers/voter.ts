@@ -1,8 +1,13 @@
-export function transform(entity) {
+import { bignumify } from "@arkecosystem/core-utils";
+
+export function transform(model) {
 	return {
-		address: entity.address,
-		publicKey: entity.publicKey,
-		balance: entity.balance,
-		isDelegate: !!entity.username,
+		address: model.address,
+		publicKey: model.publicKey,
+		username: model.username,
+		secondPublicKey: model.secondPublicKey,
+		balance: +bignumify(model.balance).toFixed(),
+		isDelegate: !!model.username,
+		vote: model.vote,
 	};
 }

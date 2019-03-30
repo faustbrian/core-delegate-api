@@ -1,3 +1,4 @@
+import { app } from "@arkecosystem/core-container";
 import { Server } from "hapi";
 import * as handlers from "./handlers";
 
@@ -18,6 +19,8 @@ export async function startServer(options): Promise<Server> {
 	server.route(Object.values(handlers));
 
 	await server.start();
+
+	app.resolvePlugin("logger").info(`Delegate Server running at: ${server.info.uri}`);
 
 	return server;
 }

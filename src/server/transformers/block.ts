@@ -1,20 +1,37 @@
-export function transform(entity) {
+import { app } from "@arkecosystem/core-container";
+import { Database } from "@arkecosystem/core-interfaces";
+import { bignumify, formatTimestamp } from "@arkecosystem/core-utils";
+
+export function transform(model) {
+	const databaseService = app.resolvePlugin<Database.IDatabaseService>("database");
+	const generator = databaseService.walletManager.findByPublicKey(model.generatorPublicKey);
+
+	model.reward = bignumify(model.reward);
+	model.totalFee = bignumify(model.totalFee);
+
 	return {
-		id: entity.id,
-		// version: Number(entity.version),
-		// height: Number(entity.height),
-		// previous: entity.previousentity,
-		// forged: {
-		//     reward: Number(entity.reward),
-		//     fee: Number(entity.totalFee),
-		//     total: Number(entity.reward) + Number(entity.totalFee),
-		// },
-		// payload: {
-		//     hash: entity.payloadHash,
-		//     length: Number(entity.payloadLength),
-		// },
-		// signature: entity.entitySignature,
-		// transactions: Number(entity.numberOfTransactions),
-		// timestamp: formatTimestamp(entity.timestamp),
+		id: model.id,
+		version: +model.version,
+		height: +model.height,
+		previous: model.previousBlock,
+		forged: {
+			reward: +model.reward.toFixed(),
+			fee: +model.totalFee.toFixed(),
+			total: +model.reward.plus(model.totalFee).toFixed(),
+			amount: +bignumify(model.totalAmount).toFixed(),
+		},
+		payload: {
+			hash: model.payloadHash,
+			length: model.payloadLength,
+		},
+		generator: {
+			username: generator.username,
+			address: generator.address,
+			publicKey: generator.publicKey,
+		},
+		signature: model.blockSignature,
+		confirmations: model.confirmations,
+		transactions: model.numberOfTransactions,
+		timestamp: formatTimestamp(model.timestamp),
 	};
 }

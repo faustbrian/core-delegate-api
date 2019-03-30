@@ -8,6 +8,12 @@ export const plugin = {
 		server.ext({
 			type: "onPreAuth",
 			async method(request, h) {
+				const settings = request.route.settings.plugins["core-delegate-picker"];
+
+				if (settings && settings.enabled === false) {
+					return h.continue;
+				}
+
 				const delegate = delegateRepository.findById(request.params.delegate);
 
 				if (!delegate) {

@@ -110,7 +110,7 @@ export const getBlockTransactions = {
 
 export const postTransactions = {
 	method: "POST",
-	path: "/{delegate}/transactions",
+	path: "/transactions",
 	async handler(request, h) {
 		const transactions = request.payload.transactions.map(transaction => Transaction.fromData(transaction));
 
@@ -119,6 +119,9 @@ export const postTransactions = {
 		return h.code(204);
 	},
 	options: {
+		plugins: {
+			"core-delegate-picker": { enabled: false },
+		},
 		validate: {
 			payload: {
 				transactions: Joi.array(),

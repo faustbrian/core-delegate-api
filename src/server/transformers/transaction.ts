@@ -1,33 +1,32 @@
-import { crypto, Transaction } from "@arkecosystem/crypto";
+import { app } from "@arkecosystem/core-container";
+import { Blockchain, Database } from "@arkecosystem/core-interfaces";
+import { formatTimestamp } from "@arkecosystem/core-utils";
+import { Transaction } from "@arkecosystem/crypto";
 
-// const container = require('@arkecosystem/core-container')
-// const blockchain = container.resolvePlugin('blockchain')
-// const config = container.resolvePlugin('config')
+export function transform(model) {
+	const blockchain = app.resolvePlugin<Blockchain.IBlockchain>("blockchain");
+	const databaseService = app.resolvePlugin<Database.IDatabaseService>("database");
 
-// const blockRepository = require('../../repositories/block')
-// const formatTimestamp = require('./helpers/format-timestamp')
+	const { data } = Transaction.fromBytesUnsafe(model.serialized, model.id);
+	const sender = databaseService.walletManager.findByPublicKey(data.senderPublicKey).address;
 
-export function transform(entity) {
-	const { data } = Transaction.fromHex(entity.serialized.toString("hex"));
-
-	// const block = await blockRepository._find(blockRepository.query
-	//     .select()
-	//     .from(blockRepository.query)
-	//     .where(blockRepository.query.id.equals(entity.blockId)))
+	const lastBlock = blockchain.getLastBlock();
 
 	return {
 		id: data.id,
-		blockId: entity.blockId,
-		// type: Number(data.type),
-		// amount: Number(data.amount),
-		// fee: Number(data.fee),
-		// sender: crypto.getAddress(data.senderPublicKey, config.network.pubKeyHash),
-		// recipient: data.recipientId,
-		// signature: data.signature,
-		// vendorField: data.vendorField,
-		// asset: data.asset,
-		// confirmations: block ? blockchain.getLastBlock().data.height - block.height : 0,
-		// timestamp: formatTimestamp(data.timestamp),
-		// serialized: entity.serialized.toString('hex')
+		blockId: model.blockId,
+		version: data.version,
+		type: data.type,
+		amount: +data.amount,
+		fee: +data.fee,
+		sender,
+		recipient: data.recipientId,
+		signature: data.signature,
+		signSignature: data.signSignature,
+		signatures: data.signatures,
+		vendorField: data.vendorField,
+		asset: data.asset,
+		confirmations: model.block ? lastBlock.data.height - model.block.height : 0,
+		timestamp: formatTimestamp(model.timestamp || data.timestamp),
 	};
 }
