@@ -1,6 +1,6 @@
 # Ark Core - Delegate API
 
-> A delegate experience focused API for [Ark Core](https://github.com/ArkEcosystem/core).
+[![Latest Version](https://badgen.net/npm/v/@faustbrian/core-delegate-api)](https://www.npmjs.com/package/@faustbrian/core-delegate-api)
 
 ## Installation
 
