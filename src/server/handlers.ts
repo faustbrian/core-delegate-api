@@ -9,6 +9,10 @@ import { transactionRepository } from "../repositories/transaction";
 import { voterRepository } from "../repositories/voter";
 import { createPaginatedResponse, createPagination, createResponse } from "./helpers";
 
+const schemaSorting = {
+	orderBy: Joi.string(),
+};
+
 const schemaPagination = {
 	limit: Joi.number()
 		.integer()
@@ -46,7 +50,7 @@ export const getBlocks = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -104,7 +108,7 @@ export const getBlockTransactions = {
 				delegate: Joi.string(),
 				block: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -144,7 +148,7 @@ export const getTransactions = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -183,7 +187,7 @@ export const getTransactionsSent = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -204,7 +208,7 @@ export const getTransactionsReceived = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -222,7 +226,7 @@ export const getTransactionsForged = {
 			params: {
 				delegate: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -280,7 +284,7 @@ export const getVoterTransactions = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -299,7 +303,7 @@ export const getVoterTransactionsSent = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
@@ -318,7 +322,7 @@ export const getVoterTransactionsReceived = {
 				delegate: Joi.string(),
 				voter: Joi.string(),
 			},
-			query: schemaPagination,
+			query: { ...schemaSorting, ...schemaPagination },
 		},
 	},
 };
