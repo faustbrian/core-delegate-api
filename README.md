@@ -34,10 +34,6 @@ Retrieve a specific block forged by the given delegate.
 
 Retrieve transaction forged in a specific block by the given delegate.
 
-### `/transactions`
-
-Push transactions to the transaction pool without additional validation.
-
 ### `/{delegate}/transactions` (**Supports Pagination**)
 
 Retrieve transactions that were sent or received by the given delegate.
@@ -85,6 +81,10 @@ Retrieve voters as key-value pairs of `address:balance` of the given delegate.
 ### `/{delegate}/voters/balances/public-key`
 
 Retrieve voters as key-value pairs of `publicKey:balance` of the given delegate.
+
+### `/transactions`
+
+Push transactions to the transaction pool without additional validation.
 
 ## Pagination & Sorting
 
