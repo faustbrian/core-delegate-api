@@ -10,6 +10,84 @@
 yarn global add @faustbrian/core-delegate-api
 ```
 
+## Endpoints
+
+### /{delegate}
+
+Retrieve wallet information about a delegate.
+
+### /{delegate}/blocks (**Supports Pagination**)
+
+Retrieve blocks forged by the given delegate.
+
+### /{delegate}/blocks/latest
+
+Retrieve the last forged block by the given delegate.
+
+### /{delegate}/blocks/{block}
+
+Retrieve a specific block forged by the given delegate.
+
+### /{delegate}/blocks/{block}/transactions (**Supports Pagination**)
+
+Retrieve transaction forged in a specific block by the given delegate.
+
+### /transactions
+
+Push transactions to the transaction pool without additional validation.
+
+### /{delegate}/transactions (**Supports Pagination**)
+
+Retrieve transactions that were sent or received by the given delegate.
+
+### /{delegate}/transactions/{transaction}
+
+Retrieve a transaction that was sent or received by the given delegate.
+
+### /{delegate}/transactions/sent (**Supports Pagination**)
+
+Retrieve transactions that were sent by the given delegate.
+
+### /{delegate}/transactions/received (**Supports Pagination**)
+
+Retrieve transactions that were received by the given delegate.
+
+### /{delegate}/transactions/forged (**Supports Pagination**)
+
+Retrieve transactions that were forged by the given delegate.
+
+### /{delegate}/voters (**Supports Pagination**)
+
+Retrieve voters for the given delegate.
+
+### /{delegate}/voters/{voter}
+
+Retrieve a voter for the given delegate.
+
+### /{delegate}/voters/{voter}/transactions (**Supports Pagination**)
+
+Retrieve transactions that were sent or received by the voter of the given delegate.
+
+### /{delegate}/voters/{voter}/transactions/sent (**Supports Pagination**)
+
+Retrieve transactions that were sent by the voter of the given delegate.
+
+### /{delegate}/voters/{voter}/transactions/received (**Supports Pagination**)
+
+Retrieve transactions that were received by the voter of the given delegate.
+
+### /{delegate}/voters/balances/address
+
+Retrieve voters as key-value pairs of `address:balance` of the given delegate.
+
+### /{delegate}/voters/balances/public-key
+
+Retrieve voters as key-value pairs of `publicKey:balance` of the given delegate.
+
+## Pagination & Sorting
+
+Endpoints that are marked as **Supports Pagination** can be sorted and paginated via `orderBy`, `offset` and `limit`.
+
 ## Security
 
 If you discover a security vulnerability within this package, please send an e-mail to hello@basecode.sh. All security vulnerabilities will be promptly addressed.
