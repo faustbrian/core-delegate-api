@@ -12,75 +12,77 @@ yarn global add @faustbrian/core-delegate-api
 
 ## Endpoints
 
-### /{delegate}
+All endpoints use the same database repositories as the `@arkecosystem/core-api` package so most of the same parameters could be used if enabled in the validation schemas.
+
+### `/{delegate}`
 
 Retrieve wallet information about a delegate.
 
-### /{delegate}/blocks (**Supports Pagination**)
+### `/{delegate}/blocks` (**Supports Pagination**)
 
 Retrieve blocks forged by the given delegate.
 
-### /{delegate}/blocks/latest
+### `/{delegate}/blocks/latest`
 
 Retrieve the last forged block by the given delegate.
 
-### /{delegate}/blocks/{block}
+### `/{delegate}/blocks/{block}`
 
 Retrieve a specific block forged by the given delegate.
 
-### /{delegate}/blocks/{block}/transactions (**Supports Pagination**)
+### `/{delegate}/blocks/{block}/transactions` (**Supports Pagination**)
 
 Retrieve transaction forged in a specific block by the given delegate.
 
-### /transactions
+### `/transactions`
 
 Push transactions to the transaction pool without additional validation.
 
-### /{delegate}/transactions (**Supports Pagination**)
+### `/{delegate}/transactions` (**Supports Pagination**)
 
 Retrieve transactions that were sent or received by the given delegate.
 
-### /{delegate}/transactions/{transaction}
+### `/{delegate}/transactions/{transaction}`
 
 Retrieve a transaction that was sent or received by the given delegate.
 
-### /{delegate}/transactions/sent (**Supports Pagination**)
+### `/{delegate}/transactions/sent` (**Supports Pagination**)
 
 Retrieve transactions that were sent by the given delegate.
 
-### /{delegate}/transactions/received (**Supports Pagination**)
+### `/{delegate}/transactions/received` (**Supports Pagination**)
 
 Retrieve transactions that were received by the given delegate.
 
-### /{delegate}/transactions/forged (**Supports Pagination**)
+### `/{delegate}/transactions/forged` (**Supports Pagination**)
 
 Retrieve transactions that were forged by the given delegate.
 
-### /{delegate}/voters (**Supports Pagination**)
+### `/{delegate}/voters` (**Supports Pagination**)
 
 Retrieve voters for the given delegate.
 
-### /{delegate}/voters/{voter}
+### `/{delegate}/voters/{voter}`
 
 Retrieve a voter for the given delegate.
 
-### /{delegate}/voters/{voter}/transactions (**Supports Pagination**)
+### `/{delegate}/voters/{voter}/transactions` (**Supports Pagination**)
 
 Retrieve transactions that were sent or received by the voter of the given delegate.
 
-### /{delegate}/voters/{voter}/transactions/sent (**Supports Pagination**)
+### `/{delegate}/voters/{voter}/transactions/sent` (**Supports Pagination**)
 
 Retrieve transactions that were sent by the voter of the given delegate.
 
-### /{delegate}/voters/{voter}/transactions/received (**Supports Pagination**)
+### `/{delegate}/voters/{voter}/transactions/received` (**Supports Pagination**)
 
 Retrieve transactions that were received by the voter of the given delegate.
 
-### /{delegate}/voters/balances/address
+### `/{delegate}/voters/balances/address`
 
 Retrieve voters as key-value pairs of `address:balance` of the given delegate.
 
-### /{delegate}/voters/balances/public-key
+### `/{delegate}/voters/balances/public-key`
 
 Retrieve voters as key-value pairs of `publicKey:balance` of the given delegate.
 
