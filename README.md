@@ -1,6 +1,6 @@
 # Ark Core - Delegate API
 
-[![Latest Version](https://badgen.net/npm/v/@faustbrian/core-delegate-api)](https://www.npmjs.com/package/@faustbrian/core-delegate-api)
+[![Latest Version](https://badgen.net/npm/v/@faustbrian/core-delegate-api)](https://www.npmjs.com/package/@faustbrian/core-delegate-api) [![Greenkeeper badge](https://badges.greenkeeper.io/arkx-dev/core-delegate-api.svg)](https://greenkeeper.io/)
 
 ## Installation
 
